@@ -13,7 +13,7 @@ after_success:
   - docker build -t dsknudsen/multi-nginx ./nginx
   - docker build -t dsknudsen/multi-server ./server
   - docker build -t dsknudsen/multi-worker ./worker
-  # Log into the docker CLI (test)
+  # Log into the docker CLI (generating a change again)
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to Docker Hub
   - docker push dsknudsen/multi-client
