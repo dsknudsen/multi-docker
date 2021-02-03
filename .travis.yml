@@ -1,4 +1,6 @@
 sudo: required
+language: generic
+
 services:
   - docker
 
@@ -13,22 +15,22 @@ after_success:
   - docker build -t dsknudsen/multi-nginx ./nginx
   - docker build -t dsknudsen/multi-server ./server
   - docker build -t dsknudsen/multi-worker ./worker
-  # Log into the docker CLI (generating a change again)
+  # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  # Take those images and push them to Docker Hub
+  # Take those images and push them to docker hub
   - docker push dsknudsen/multi-client
   - docker push dsknudsen/multi-nginx
   - docker push dsknudsen/multi-server
   - docker push dsknudsen/multi-worker
 
-  deploy:
-    provider: elasticbeanstalk
-    region: us-east-1
-    app: multi-container
-    env: MultiContainer-env
-    bucket_name: elasticbeanstalk-us-east-1-520072654015
-    bucket_path: docker-multi
-    on:
-      branch: master
-    acess_key_id: $AWS_ACCESS_KEY
-    secret_access_key: $AWS_SECRET_KEY
+deploy:
+  provider: elasticbeanstalk
+  region: 'us-east-1'
+  app: 'multi-container'
+  env: 'MultiContainer-env'
+  bucket_name: 'elasticbeanstalk-us-east-1-520072654015'
+  bucket_path: 'docker-multi'
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
