@@ -4,7 +4,7 @@ language: generic
 services:
   - docker
 
-efore_install:
+before_install:
   - docker build -t dsknudsen/react-test -f ./client/Dockerfile.dev ./client
 
 script:
